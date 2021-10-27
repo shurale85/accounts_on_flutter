@@ -10,7 +10,7 @@ class SplashScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: const <Widget>[
           Text(
-            "Initialization",
+            "Loading",
             style: TextStyle(
               fontSize: 32,
               fontWeight: FontWeight.bold,

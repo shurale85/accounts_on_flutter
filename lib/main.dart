@@ -1,14 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_projects/service/network_service.dart';
 import 'package:mobile_projects/service/public_client_builder.dart';
 import 'package:mobile_projects/service/token_service.dart';
 import 'package:mobile_projects/views/content_view.dart';
 import 'package:msal_js/msal_js.dart';
+import 'package:provider/provider.dart';
 
 const List<String> scopes = ['https://flutterback.crm4.dynamics.com/.default'];
 
 void main() {
-  runApp( MyApp());
+  runApp(
+      MultiProvider(providers: [
+        ChangeNotifierProvider(create: (_) => NetworkService())],
+      child: MyApp(),));
 }
 
 class MyApp extends StatelessWidget {
@@ -46,6 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         _user = response.account;
         TokenService.SetToken(response.accessToken);
+        context.read<NetworkService>().getAccounts();
       });
     } on AuthException catch (ex) {
       print('MSAL: ${ex.errorCode}:${ex.errorMessage}');
@@ -77,7 +83,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                     actions: [ElevatedButton(
                       child: Text('sdfasdfasdfa'),
-                      onPressed: (){ print('YES');},
+                      onPressed: (){
+                        context.read<NetworkService>().getFilteredAccounts();},
                     )],
                   );
                 });
@@ -96,7 +103,7 @@ class _MyHomePageState extends State<MyHomePage> {
         padding: const EdgeInsets.all(20),
         child: _user != null
           ? ContentView(key: _key)
-            : Center(child: ElevatedButton(
+          : Center(child: ElevatedButton(
               child: const Text('Login'),
               onPressed: _loginPopup,
             ))

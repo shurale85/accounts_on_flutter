@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:mobile_projects/models/account.dart';
 import 'package:mobile_projects/service/network_service.dart';
 import 'package:mobile_projects/views/card_view.dart';
+import 'package:provider/src/provider.dart';
 
 import 'splash_screen.dart';
 import 'car_grid_viw.dart';
@@ -15,7 +16,7 @@ class ContentView extends StatefulWidget {
 
 class ContentViewState extends State<ContentView> {
   bool isListView = false;
-  Future<List<Account>?> accountsFuture = NetworkService.getAccounts();
+  //Future<List<Account>?> accountsFuture = NetworkService.getAccounts();
   ContentViewState();
 
   @override
@@ -26,16 +27,12 @@ class ContentViewState extends State<ContentView> {
 
   @override
   Widget build(BuildContext context){
-        return  FutureBuilder(
-            future: accountsFuture,
-            builder: (context, snapshot) {
-              if(snapshot.connectionState == ConnectionState.done) {
-                final accounts = (snapshot.data as List<Account>?) ?? List.empty();
-
-                return accounts.isEmpty
-                ? Text('No accounts are found')
-                : isListView
-                    ? ListView.builder(
+    List<Account> accounts = context.watch<NetworkService>().getData();
+        return context.watch<NetworkService>().getIsLoading()
+          ? const SplashScreen()
+          : Center(child:
+            isListView
+              ? ListView.builder(
                     itemCount: accounts.length,
                     itemBuilder: (context, index){
                       return Container(
@@ -53,14 +50,8 @@ class ContentViewState extends State<ContentView> {
                   itemCount: accounts.length,
                   itemBuilder: (BuildContext context, index){
                   return CardGridView(accounts[index]);
-                 });
-                  } else {
-                    return SplashScreen();
-                  }
-                },
-          ) ;
-
-  }
+                 }));
+          }
 
   updateCardView(bool isListViewSelected) {
     if(isListView != isListViewSelected) {
