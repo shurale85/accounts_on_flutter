@@ -7,4 +7,6 @@ class OperationResult<T> {
   OperationResult({this.data, this.error});
 
   bool isOk() => error == null;
+
+  static OperationResult success() => OperationResult();
 }

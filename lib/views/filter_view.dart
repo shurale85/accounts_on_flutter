@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_projects/models/account_state_enum.dart';
+import 'package:mobile_projects/models/filter_model.dart';
 import 'package:mobile_projects/service/network_service.dart';
 import 'package:provider/src/provider.dart';
 import 'package:enum_to_string/enum_to_string.dart';
@@ -14,6 +15,7 @@ class FilterView extends StatefulWidget {
 
 class FilterViewState extends State<FilterView> {
   AccountState? stateValue = AccountState.all;
+  final textEditingController = TextEditingController();
 
   @override
   void initState() {
@@ -77,8 +79,10 @@ class FilterViewState extends State<FilterView> {
                                 /* Clear the search field */
                               },
                             ),
-                            hintText: 'State or Province...',
-                            border: InputBorder.none),
+
+                         hintText: 'State or Province...',
+                         border: InputBorder.none),
+                         controller: textEditingController,
                       ),
                     ),
                   )
@@ -92,7 +96,7 @@ class FilterViewState extends State<FilterView> {
         ),
         TextButton(
           onPressed: () {
-            context.read<NetworkService>().getFilteredAccounts();
+            context.read<NetworkService>().getFilteredAccounts(FilterModel(accountState: stateValue, stateOrProvince: textEditingController.text));
             Navigator.pop(context);},
           child: const Text('Search'),
         ),
