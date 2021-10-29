@@ -4,6 +4,7 @@ import 'package:mobile_projects/service/network_service.dart';
 import 'package:mobile_projects/service/public_client_builder.dart';
 import 'package:mobile_projects/service/token_service.dart';
 import 'package:mobile_projects/views/content_view.dart';
+import 'package:mobile_projects/views/filter_view.dart';
 import 'package:msal_js/msal_js.dart';
 import 'package:provider/provider.dart';
 
@@ -74,24 +75,11 @@ class _MyHomePageState extends State<MyHomePage> {
               runAlignment: WrapAlignment.center,
               children: [ IconButton(onPressed: (){
                 showDialog(context: context, builder: (BuildContext context){
-                  return AlertDialog(
-                    scrollable: true,
-                    title: Text('Filter'),
-                    content: const Padding(
-                      padding: EdgeInsets.all(10),
-                      child: Text('Test Filter'),
-                    ),
-                    actions: [ElevatedButton(
-                      child: Text('sdfasdfasdfa'),
-                      onPressed: (){
-                        context.read<NetworkService>().getFilteredAccounts();},
-                    )],
-                  );
+                  return FilterView();
                 });
               }, icon: const Icon(Icons.filter_alt)), Text('Filter')]),
           IconButton(onPressed: (){
             _key.currentState!.updateCardView(true);
-            print(isListView);
           }, icon: const Icon(Icons.view_list)),
           IconButton(onPressed: (){
             _key.currentState!.updateCardView(false);
