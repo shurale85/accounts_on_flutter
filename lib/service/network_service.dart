@@ -71,6 +71,29 @@ class NetworkService with ChangeNotifier{
     }
   }
 
+  Future searchAccount(String query) async{
+    try {
+      void map(Response response)  {
+        _dataSource = response.data['value'].map<Account>((item) =>
+            Account.fromJson(item)).toList();
+      }
+
+
+      final qParam = "\$filter=(contains(accountnumber, '$query') or contains(name, '$query'))";
+
+      print(qParam);
+      var result = await _httpGet(qParams:qParam, callback: map);
+      if(!result.isOk()) {
+        //TODO: add debug logging, err handling logic
+        print(result.error);
+      }
+    } catch (e) {
+      //TODO: add debug logging, err handling logic
+      print(e);
+    }
+  }
+
+
   Future getFilteredAccounts(FilterModel filterModel) async {
     try {
       void map(Response response)  {

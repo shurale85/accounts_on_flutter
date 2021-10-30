@@ -7,6 +7,7 @@ import 'package:mobile_projects/views/content_view.dart';
 import 'package:mobile_projects/views/filter_view.dart';
 import 'package:msal_js/msal_js.dart';
 import 'package:provider/provider.dart';
+import 'package:rxdart/rxdart.dart';
 
 const List<String> scopes = ['https://flutterback.crm4.dynamics.com/.default'];
 
@@ -24,6 +25,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      theme: ThemeData(
+          primaryColor: Colors.blueGrey
+      ),
       debugShowCheckedModeBanner: false,
       home: MyHomePage(title: 'Flutter Demo Home Page')
     );
@@ -33,7 +37,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatefulWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
   final String title;
-  PublicClientApplication publicClientApp = PublicClientBuilder.build();
+  final PublicClientApplication publicClientApp = PublicClientBuilder.build();
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
@@ -59,17 +63,41 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+
+  @override
+  void initState() {
+    searchOnChange.debounceTime(const Duration(seconds: 1)).listen((query) {
+      context.read<NetworkService>().searchAccount(query);
+    });
+    super.initState();
+  }
+
+  final textEditingController = TextEditingController();
+  bool isSearching = false;
+  final searchOnChange = BehaviorSubject<String>();
+  void _search(String queryString) {
+    searchOnChange.add(queryString);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(onPressed: (){}, icon: const Icon(Icons.search)),
-        title: TextFormField(
-            decoration: const InputDecoration(
-                border: UnderlineInputBorder(),
-                labelText: 'Search'
-            )
-        ),
+        title: TextField(
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.all(7),
+                fillColor: Colors.white60,
+                  filled: true,
+                  border: OutlineInputBorder(
+
+                  ),
+                  labelText: 'Search'
+              ),
+            onChanged: _search,
+          controller: textEditingController,
+          ),
+
         actions: [
           Wrap(crossAxisAlignment: WrapCrossAlignment.center,
               runAlignment: WrapAlignment.center,
