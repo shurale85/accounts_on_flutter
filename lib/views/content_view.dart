@@ -43,7 +43,7 @@ class ContentViewState extends State<ContentView> {
                     })
                   : GridView.builder(
                   gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 200,
+                  maxCrossAxisExtent: 250,
                   childAspectRatio: 3/2,
                   crossAxisSpacing: 20,
                   mainAxisSpacing: 20),
