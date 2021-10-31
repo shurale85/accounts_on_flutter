@@ -22,12 +22,15 @@ class _MainPageState extends State<MainPage> {
   bool isListView = false;
   final GlobalKey<ContentViewState> _key = GlobalKey();
 
+
   @override
   void initState() {
-    context.read<NetworkService>().getAccounts();
-    searchOnChange.debounceTime(const Duration(seconds: 1)).listen((query) {
+   searchOnChange.debounceTime(const Duration(seconds: 1)).listen((query) {
       context.read<NetworkService>().searchAccount(query);
     });
+   WidgetsBinding.instance!
+       .addPostFrameCallback((_) => context.read<NetworkService>().getAccounts());
+
     super.initState();
   }
 
