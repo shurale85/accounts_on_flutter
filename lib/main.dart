@@ -8,6 +8,7 @@ import 'package:mobile_projects/views/filter_view.dart';
 import 'package:msal_js/msal_js.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
+import 'route/route.dart' as route;
 
 const List<String> scopes = ['https://flutterback.crm4.dynamics.com/.default'];
 
@@ -29,7 +30,9 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.blueGrey
       ),
       debugShowCheckedModeBanner: false,
-      home: MyHomePage(title: 'Flutter Demo Home Page')
+      onGenerateRoute: route.controller,
+      initialRoute: route.loginPage,
+      //home: MyHomePage(title: 'Flutter Demo Home Page')
     );
   }
 }
@@ -55,8 +58,9 @@ class _MyHomePageState extends State<MyHomePage> {
           .loginPopup(PopupRequest()..scopes = scopes);
       setState(() {
         _user = response.account;
-        TokenService.SetToken(response.accessToken);
+        TokenService.setToken(response.accessToken);
         context.read<NetworkService>().getAccounts();
+
       });
     } on AuthException catch (ex) {
       print('MSAL: ${ex.errorCode}:${ex.errorMessage}');

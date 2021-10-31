@@ -31,7 +31,7 @@ class NetworkService with ChangeNotifier{
   //TODO: remove after
   Future _getAccounts() async {
     try {
-      final tokenResult = TokenService.GetToken();
+      final tokenResult = TokenService.getToken();
       if(tokenResult.isOk() && tokenResult.data != null) {
         _setLoading();
         final response = await http.get(
@@ -123,7 +123,7 @@ class NetworkService with ChangeNotifier{
     }
 
     try {
-        final tokenResult = TokenService.GetToken();
+        final tokenResult = TokenService.getToken();
         if(tokenResult.isOk() && tokenResult.data != null) {
           _setLoading();
 

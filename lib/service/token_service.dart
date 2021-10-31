@@ -4,9 +4,9 @@ import 'package:mobile_projects/models/operation_result.dart';
 class TokenService {
   static String? _token;
 
-  static void SetToken(String token) => _token ??= token;
+  static void setToken(String token) => _token ??= token;
 
-  static OperationResult<String> GetToken() {
+  static OperationResult<String> getToken() {
     if( _token == null) {
       return OperationResult<String>(error: 'No access token');
     }
@@ -14,7 +14,7 @@ class TokenService {
     return OperationResult<String>(data: _token);
   }
 
-  void RefreshToken() {
+  void refreshToken() {
     //some refresh logic
   }
 }
