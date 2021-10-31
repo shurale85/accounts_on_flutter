@@ -14,7 +14,7 @@ class FilterModel {
     var stateOrProvinceParam = stateOrProvince != null && stateOrProvince!.trim().isNotEmpty
       ? "contains(address1_stateorprovince, '${stateOrProvince!.trim()}')"
       : '';
-    var conjunction = stateCodeParam != '' && stateOrProvince != ''
+    var conjunction = stateCodeParam != '' && stateOrProvinceParam != ''
       ? " and "
       : '';
 

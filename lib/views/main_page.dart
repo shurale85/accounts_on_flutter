@@ -30,7 +30,6 @@ class _MainPageState extends State<MainPage> {
     });
    WidgetsBinding.instance!
        .addPostFrameCallback((_) => context.read<NetworkService>().getAccounts());
-
     super.initState();
   }
 
