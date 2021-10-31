@@ -10,7 +10,6 @@ class CardGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-
       padding:const EdgeInsets.all(7.0),
       decoration: BoxDecoration(
         color: Colors.white60,
