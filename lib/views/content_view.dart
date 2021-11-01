@@ -10,13 +10,16 @@ import 'car_grid_viw.dart';
 
 class ContentView extends StatefulWidget {
   bool isListView = false;
+
   ContentView({Key? key}) : super(key: key);
+
   @override
   ContentViewState createState() => ContentViewState();
 }
 
 class ContentViewState extends State<ContentView> {
   bool isListView = false;
+
   ContentViewState();
 
   @override
@@ -25,37 +28,41 @@ class ContentViewState extends State<ContentView> {
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     List<Account> accounts = context.watch<Repository>().getData();
-        return context.watch<NetworkService>().getIsLoading()
-          ? const SplashScreen()
-          : Center(child:
-            isListView
-              ? ListView.builder(
-                    itemCount: accounts.length,
-                    itemBuilder: (context, index){
-                      return Container(
-                        height: 200,
-                        margin: const EdgeInsets.all(2),
-                        child: CardView(accounts[index]),
-                      );
-                    })
-                  : GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                  maxCrossAxisExtent: 250,
-                  childAspectRatio: 3/2,
-                  crossAxisSpacing: 20,
-                  mainAxisSpacing: 20),
-                  itemCount: accounts.length,
-                  itemBuilder: (BuildContext context, index){
-                  return CardGridView(accounts[index]);
-                 }));
-          }
+    return context.watch<NetworkService>().getIsLoading()
+        ? const SplashScreen()
+        : accounts.isEmpty
+            ? const Center(child: Text('No account is found'))
+            : Center(
+                child: isListView
+                    ? ListView.builder(
+                        itemCount: accounts.length,
+                        itemBuilder: (context, index) {
+                          return Container(
+                            height: 200,
+                            margin: const EdgeInsets.all(2),
+                            child: CardView(accounts[index]),
+                          );
+                        })
+                    : GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 250,
+                                childAspectRatio: 3 / 2,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20),
+                        itemCount: accounts.length,
+                        itemBuilder: (BuildContext context, index) {
+                          return CardGridView(accounts[index]);
+                        }));
+  }
 
   updateCardView(bool isListViewSelected) {
-    if(isListView != isListViewSelected) {
-      setState((){
+    if (isListView != isListViewSelected) {
+      setState(() {
         isListView = isListViewSelected;
       });
-  }}
+    }
+  }
 }

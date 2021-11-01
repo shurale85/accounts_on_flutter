@@ -7,7 +7,7 @@ import 'package:mobile_projects/service/repository.dart';
 import 'package:mobile_projects/views/content_view.dart';
 import 'package:mockito/mockito.dart';
 import 'package:provider/provider.dart';
-import 'package:mobile_projects/main.dart' as app;
+import 'package:mobile_projects/main_test.dart' as app;
 
 class MockRepository extends Mock implements Repository {
   @override
@@ -21,20 +21,21 @@ void main() {
   testWidgets('test', (WidgetTester tester) async {
 
     app.main();
-    //await tester.pumpAndSettle()
+    await tester.pumpAndSettle();
 
-    await tester.pumpWidget(
-      Provider<Repository>.value(
-        value: MockRepository(),
-        child: ContentView(),
-      )
-    );
+    //expect(find.byWidget(ContentView,'dfgd'));
+    // await tester.pumpWidget(
+    //   Provider<Repository>.value(
+    //     value: MockRepository(),
+    //     child: ContentView(),
+    //   )
+    // );
 
     // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+    //await tester.pumpWidget(MyApp());
 
     // Verify that our counter starts at 0.
-    expect(find.text('Name_1'), findsOneWidget);
+    expect(find.text('No account is found'), findsOneWidget);
     //  expect(find.text('1'), findsNothing);
     // Tap the '+' icon and trigger a frame.
   });
