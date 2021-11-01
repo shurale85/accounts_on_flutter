@@ -1,3 +1,4 @@
+
 import 'package:msal_js/msal_js.dart';
 
 class PublicClientBuilder {

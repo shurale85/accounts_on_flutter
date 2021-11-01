@@ -21,7 +21,6 @@ class ContentViewState extends State<ContentView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

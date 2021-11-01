@@ -11,9 +11,10 @@ typedef ResponseMapper = void Function(Response response);
 class NetworkService with ChangeNotifier{
   bool _isLoading = false;
   bool getIsLoading() => _isLoading;
-  final Repository repository;
+  final Repository _repository;
+  final TokenService _tokenService;
 
-  NetworkService({required this.repository});
+  NetworkService({required Repository repository, required TokenService tokenService}) : _repository = repository, _tokenService = tokenService;
 
   _setLoading() {
     _isLoading = true;
@@ -26,10 +27,8 @@ class NetworkService with ChangeNotifier{
 
   Future getAccounts() async {
     try {
-
       void map(Response response)  {
-        //_dataSource
-        repository.setData(response.data['value'].map<Account>((item) =>
+        _repository.setData(response.data['value'].map<Account>((item) =>
            Account.fromJson(item)).toList());
       }
 
@@ -47,14 +46,11 @@ class NetworkService with ChangeNotifier{
   Future searchAccount(String query) async{
     try {
       void map(Response response)  {
-          repository.setData(response.data['value'].map<Account>((item) =>
+          _repository.setData(response.data['value'].map<Account>((item) =>
             Account.fromJson(item)).toList());
       }
 
-
       final qParam = "\$filter=(contains(accountnumber, '$query') or contains(name, '$query'))";
-
-      print(qParam);
       var result = await _httpGet(qParams:qParam, callback: map);
       if(!result.isOk()) {
         //TODO: add debug logging, err handling logic
@@ -70,7 +66,7 @@ class NetworkService with ChangeNotifier{
   Future getFilteredAccounts(FilterModel filterModel) async {
     try {
       void map(Response response)  {
-          repository.setData(response.data['value'].map<Account>((item) =>
+          _repository.setData(response.data['value'].map<Account>((item) =>
             Account.fromJson(item)).toList());
       }
 
@@ -96,7 +92,7 @@ class NetworkService with ChangeNotifier{
     }
 
     try {
-        final tokenResult = TokenService.getToken();
+        final tokenResult = _tokenService.getToken();
         if(tokenResult.isOk() && tokenResult.data != null) {
           _setLoading();
 

@@ -4,6 +4,7 @@ import 'package:mobile_projects/service/public_client_builder.dart';
 import 'package:mobile_projects/service/token_service.dart';
 import 'package:msal_js/msal_js.dart';
 import 'package:mobile_projects/route/route.dart' as route;
+import 'package:provider/provider.dart';
 
 const List<String> scopes = ['https://flutterback.crm4.dynamics.com/.default'];
 
@@ -22,7 +23,7 @@ class _LoginPageState extends State<LoginPage> {
       final response = await widget.publicClientApp
           .loginPopup(PopupRequest()..scopes = scopes);
       setState(() {
-        TokenService.setToken(response.accessToken);
+        context.read<TokenService>().setToken(response.accessToken);
         Navigator.pushNamed(context, route.mainPage);
       });
     } on AuthException catch (ex) {

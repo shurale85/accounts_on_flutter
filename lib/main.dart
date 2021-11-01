@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobile_projects/models/filter_state.dart';
 import 'package:mobile_projects/service/network_service.dart';
 import 'package:mobile_projects/service/repository.dart';
+import 'package:mobile_projects/service/token_service.dart';
 import 'package:provider/provider.dart';
 import 'route/route.dart' as route;
 
@@ -11,7 +13,11 @@ void main() {
   runApp(
       MultiProvider(providers: [
         Provider<Repository>(create: (_) => Repository()),
-        ChangeNotifierProvider(create: (ctx) => NetworkService(repository: ctx.read<Repository>())),
+        Provider<FilterState>(create: (_) => FilterState.create()),
+        Provider<TokenService>(create: (_) => TokenService()),
+        ChangeNotifierProvider(create: (ctx) => NetworkService(
+            repository: ctx.read<Repository>(),
+            tokenService: ctx.read<TokenService>())),
       ],
       child: MyApp(),));
 }

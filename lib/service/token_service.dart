@@ -1,20 +1,18 @@
 import 'package:mobile_projects/models/operation_result.dart';
 
-// Simplified logic of token accessing
+/// Simplified logic of token storing
 class TokenService {
   static String? _token;
 
-  static void setToken(String token) => _token ??= token;
+  TokenService();
 
-  static OperationResult<String> getToken() {
+  void setToken(String token) => _token ??= token;
+
+  OperationResult<String> getToken() {
     if( _token == null) {
       return OperationResult<String>(error: 'No access token');
     }
 
     return OperationResult<String>(data: _token);
-  }
-
-  void refreshToken() {
-    //some refresh logic
   }
 }
