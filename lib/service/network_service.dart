@@ -29,7 +29,7 @@ class NetworkService with ChangeNotifier{
 
       void map(Response response)  {
         //_dataSource
-        repository.set(response.data['value'].map<Account>((item) =>
+        repository.setData(response.data['value'].map<Account>((item) =>
            Account.fromJson(item)).toList());
       }
 
@@ -47,7 +47,7 @@ class NetworkService with ChangeNotifier{
   Future searchAccount(String query) async{
     try {
       void map(Response response)  {
-          repository.set(response.data['value'].map<Account>((item) =>
+          repository.setData(response.data['value'].map<Account>((item) =>
             Account.fromJson(item)).toList());
       }
 
@@ -70,7 +70,7 @@ class NetworkService with ChangeNotifier{
   Future getFilteredAccounts(FilterModel filterModel) async {
     try {
       void map(Response response)  {
-          repository.set(response.data['value'].map<Account>((item) =>
+          repository.setData(response.data['value'].map<Account>((item) =>
             Account.fromJson(item)).toList());
       }
 

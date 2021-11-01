@@ -10,5 +10,5 @@ class Repository {
   List<Account> getData() => _dataSource;
 
   /// Set accounts into datasource
-  void set(List<Account> accounts) {_dataSource = accounts; }
+  void setData(List<Account> accounts) {_dataSource = accounts; }
 }

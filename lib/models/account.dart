@@ -28,5 +28,5 @@ class Account {
 
 
   static List<Account> get accounts =>
-      List<Account>.generate(10, (i) => Account('Title_$i', 1, 'UniqueKey'));
+      List<Account>.generate(10, (i) => Account('Name_$i', 1, 'id_$i', accountnumber: "$i", address1_stateorprovince: "Address of account $i"));
 }

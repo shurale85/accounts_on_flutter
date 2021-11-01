@@ -1,30 +1,41 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
+import 'package:integration_test/integration_test.dart';
+import 'package:integration_test/integration_test_driver_extended.dart';
 import 'package:mobile_projects/main.dart';
+import 'package:mobile_projects/models/account.dart';
+import 'package:mobile_projects/service/repository.dart';
+import 'package:mobile_projects/views/content_view.dart';
+import 'package:mockito/mockito.dart';
+import 'package:provider/provider.dart';
+import 'package:mobile_projects/main.dart' as app;
+
+class MockRepository extends Mock implements Repository {
+  @override
+  getData() => Account.accounts;
+}
+
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
+  testWidgets('test', (WidgetTester tester) async {
+
+    app.main();
+    //await tester.pumpAndSettle()
+
+    await tester.pumpWidget(
+      Provider<Repository>.value(
+        value: MockRepository(),
+        child: ContentView(),
+      )
+    );
+
     // Build our app and trigger a frame.
     await tester.pumpWidget(MyApp());
 
     // Verify that our counter starts at 0.
-   // expect(find.text('0'), findsOneWidget);
-  //  expect(find.text('1'), findsNothing);
-
+    expect(find.text('Name_1'), findsOneWidget);
+    //  expect(find.text('1'), findsNothing);
     // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
   });
 }
