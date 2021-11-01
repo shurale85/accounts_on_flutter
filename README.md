@@ -17,4 +17,5 @@ SPA to view accounts from Dynamic 365 CRM that is developed on flutter.
 
 This project is a starting point for a Flutter application and not suposed to be considered as best practices or production-ready-template.
 
-# integration test can be run by commmand: *flutter drive --debug --driver=test_driver/integration_test.dart --target=test/widget_test.dart*
+# testing
+integration test can be run by commmand: *flutter drive --debug --driver=test_driver/integration_test.dart --target=test/widget_test.dart*
