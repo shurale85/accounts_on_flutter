@@ -10,16 +10,18 @@ import 'route/route.dart' as route;
 const List<String> scopes = ['https://flutterback.crm4.dynamics.com/.default'];
 
 void main() {
-  runApp(
-      MultiProvider(providers: [
-        Provider<Repository>(create: (_) => Repository()),
-        Provider<FilterState>(create: (_) => FilterState.create()),
-        Provider<TokenService>(create: (_) => TokenService()),
-        ChangeNotifierProvider(create: (ctx) => NetworkService(
-            repository: ctx.read<Repository>(),
-            tokenService: ctx.read<TokenService>())),
-      ],
-      child: MyApp(),));
+  runApp(MultiProvider(
+    providers: [
+      Provider<Repository>(create: (_) => Repository()),
+      Provider<FilterState>(create: (_) => FilterState.create()),
+      Provider<TokenService>(create: (_) => TokenService()),
+      ChangeNotifierProvider(
+          create: (ctx) => NetworkService(
+              repository: ctx.read<Repository>(),
+              tokenService: ctx.read<TokenService>())),
+    ],
+    child: MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -29,13 +31,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-          primaryColor: Colors.blueGrey
-      ),
+      theme: ThemeData(primaryColor: Colors.blueGrey),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: route.controller,
-      initialRoute: route.loginPage,
-      //home: MyHomePage(title: 'Flutter Demo Home Page')
+      initialRoute: route.loginPage
     );
   }
 }

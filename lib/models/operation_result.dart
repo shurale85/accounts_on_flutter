@@ -1,5 +1,5 @@
+///Result of any operation
 class OperationResult<T> {
-
   String? error;
 
   T? data;

@@ -30,7 +30,6 @@ dependencies:
   flutter:
     sdk: flutter
   filter_list: ^1.0.0
-  flutter_azure_b2c:
   http:
   msal_js: ^2.14.0
   provider: ^6.0.1

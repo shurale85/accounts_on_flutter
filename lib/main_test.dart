@@ -8,7 +8,7 @@ import 'models/filter_state.dart';
 import 'route/route.dart' as route;
 
 const List<String> scopes = ['https://flutterback.crm4.dynamics.com/.default'];
-
+///Entry point for integration test that allows to skip login page
 void main() {
   runApp(
       MultiProvider(providers: [
@@ -34,8 +34,7 @@ class MyApp extends StatelessWidget {
       ),
       debugShowCheckedModeBanner: false,
       onGenerateRoute: route.controller,
-      initialRoute: route.mainPage,
-      //home: MyHomePage(title: 'Flutter Demo Home Page')
+      initialRoute: route.mainPage
     );
   }
 }

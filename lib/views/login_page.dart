@@ -6,6 +6,7 @@ import 'package:msal_js/msal_js.dart';
 import 'package:mobile_projects/route/route.dart' as route;
 import 'package:provider/provider.dart';
 
+/// Permissions that are requested by application
 const List<String> scopes = ['https://flutterback.crm4.dynamics.com/.default'];
 
 class LoginPage extends StatefulWidget {
@@ -17,7 +18,6 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
   Future<void> _loginPopup() async {
     try {
       final response = await widget.publicClientApp
@@ -27,16 +27,16 @@ class _LoginPageState extends State<LoginPage> {
         Navigator.pushNamed(context, route.mainPage);
       });
     } on AuthException catch (ex) {
-      print('MSAL: ${ex.errorCode}:${ex.errorMessage}');
+      rethrow;
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return  Center(child: ElevatedButton(
-    child: const Text('Login'),
-    onPressed: _loginPopup,
-    )
-    );
+    return Center(
+        child: ElevatedButton(
+      child: const Text('Login'),
+      onPressed: _loginPopup,
+    ));
   }
 }

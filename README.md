@@ -2,7 +2,7 @@
 
 SPA to view accounts from Dynamic 365 CRM that is developed on flutter.
 # active features
- - Autentication and authorization via Azure platform
+ - Authentication and authorization via Azure platform
  - Requesting accounts
  - Displaying accounts on list and grid view
  - Filtering by AccountState and ProvinceOrCity fields
@@ -17,4 +17,4 @@ SPA to view accounts from Dynamic 365 CRM that is developed on flutter.
 
 This project is a starting point for a Flutter application and not suposed to be considered as best practices or production-ready-template.
 
-# integration test can be run by commmand: flutter drive --debug --driver=test_driver/integration_test.dart --target=test/widget_test.dart
+# integration test can be run by commmand: *flutter drive --debug --driver=test_driver/integration_test.dart --target=test/widget_test.dart*

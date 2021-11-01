@@ -230,13 +230,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_azure_b2c:
-    dependency: "direct main"
-    description:
-      name: flutter_azure_b2c
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.0.3"
   flutter_driver:
     dependency: transitive
     description: flutter
@@ -251,11 +244,6 @@ packages:
     version: "1.0.4"
   flutter_test:
     dependency: "direct dev"
-    description: flutter
-    source: sdk
-    version: "0.0.0"
-  flutter_web_plugins:
-    dependency: transitive
     description: flutter
     source: sdk
     version: "0.0.0"
@@ -311,13 +299,6 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  intl:
-    dependency: transitive
-    description:
-      name: intl
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.17.0"
   io:
     dependency: transitive
     description:
@@ -661,4 +642,4 @@ packages:
     version: "3.1.0"
 sdks:
   dart: ">=2.14.0 <3.0.0"
-  flutter: ">=1.20.0"
+  flutter: ">=1.16.0"

@@ -21,20 +21,20 @@ class _MainPageState extends State<MainPage> {
   bool isListView = false;
   final GlobalKey<ContentViewState> _key = GlobalKey();
 
-
   @override
   void initState() {
-   searchOnChange.debounceTime(const Duration(seconds: 1)).listen((query) {
+    searchOnChange.debounceTime(const Duration(seconds: 1)).listen((query) {
       context.read<NetworkService>().searchAccount(query);
     });
-   WidgetsBinding.instance!
-       .addPostFrameCallback((_) => context.read<NetworkService>().getAccounts());
+    WidgetsBinding.instance!.addPostFrameCallback(
+        (_) => context.read<NetworkService>().getAccounts());
     super.initState();
   }
 
   final textEditingController = TextEditingController();
   bool isSearching = false;
   final searchOnChange = BehaviorSubject<String>();
+
   void _search(String queryString) {
     searchOnChange.add(queryString);
   }
@@ -42,41 +42,47 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(onPressed: (){}, icon: const Icon(Icons.search)),
-        title: TextField(
-          decoration: const InputDecoration(
-              contentPadding: EdgeInsets.all(7),
-              fillColor: Colors.white60,
-              filled: true,
-              border: OutlineInputBorder(),
-              labelText: 'Search'
+        appBar: AppBar(
+          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+          title: TextField(
+            decoration: const InputDecoration(
+                contentPadding: EdgeInsets.all(7),
+                fillColor: Colors.white60,
+                filled: true,
+                border: OutlineInputBorder(),
+                labelText: 'Search'),
+            onChanged: _search,
+            controller: textEditingController,
           ),
-          onChanged: _search,
-          controller: textEditingController,
+          actions: [
+            Wrap(
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runAlignment: WrapAlignment.center,
+                children: [
+                  IconButton(
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return const FilterView();
+                            });
+                      },
+                      icon: const Icon(Icons.filter_alt)),
+                  const Text('Filter')
+                ]),
+            IconButton(
+                onPressed: () {
+                  _key.currentState!.updateCardView(true);
+                },
+                icon: const Icon(Icons.view_list)),
+            IconButton(
+                onPressed: () {
+                  _key.currentState!.updateCardView(false);
+                },
+                icon: const Icon(Icons.grid_view))
+          ],
         ),
-
-        actions: [
-          Wrap(crossAxisAlignment: WrapCrossAlignment.center,
-              runAlignment: WrapAlignment.center,
-              children: [ IconButton(onPressed: (){
-                showDialog(context: context, builder: (BuildContext context){
-                  return const FilterView();
-                });
-              }, icon: const Icon(Icons.filter_alt)), const Text('Filter')]),
-          IconButton(onPressed: (){
-            _key.currentState!.updateCardView(true);
-          }, icon: const Icon(Icons.view_list)),
-          IconButton(onPressed: (){
-            _key.currentState!.updateCardView(false);
-
-          }, icon: const Icon(Icons.grid_view))
-        ],
-      ),
-      body: Padding(
-          padding: const EdgeInsets.all(20),
-          child: ContentView(key: _key)
-      )
-    );
+        body: Padding(
+            padding: const EdgeInsets.all(20), child: ContentView(key: _key)));
   }
 }

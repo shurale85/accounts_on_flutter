@@ -7,7 +7,6 @@ import 'package:mobile_projects/service/network_service.dart';
 import 'package:provider/src/provider.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 
-
 class FilterView extends StatefulWidget {
   const FilterView({Key? key}) : super(key: key);
 
@@ -16,7 +15,7 @@ class FilterView extends StatefulWidget {
 }
 
 class FilterViewState extends State<FilterView> {
-  AccountState stateValue = AccountState.all;
+  AccountStateFilter stateValue = AccountStateFilter.all;
   String? provinceOrCity;
   late FilterState _filterState;
 
@@ -25,7 +24,7 @@ class FilterViewState extends State<FilterView> {
   @override
   void initState() {
     _filterState = context.read<FilterState>();
-    textEditingController.text = _filterState.getProvinceOrCiyAddress()?? '';
+    textEditingController.text = _filterState.getProvinceOrCiyAddress() ?? '';
     stateValue = _filterState.getAccountState();
     super.initState();
   }
@@ -48,25 +47,25 @@ class FilterViewState extends State<FilterView> {
                 contentPadding: const EdgeInsets.all(10),
               ),
               child: DropdownButtonHideUnderline(
-                child: DropdownButton<AccountState>(
+                child: DropdownButton<AccountStateFilter>(
                   value: stateValue,
                   isExpanded: true,
                   isDense: true,
-                  onChanged: (AccountState? state) {
+                  onChanged: (AccountStateFilter? state) {
                     setState(() {
-                      stateValue = state ?? AccountState.all;
+                      stateValue = state ?? AccountStateFilter.all;
                     });
                   },
-                  items: AccountState.values.map((AccountState state) {
-                    return DropdownMenuItem<AccountState>(
+                  items:
+                      AccountStateFilter.values.map((AccountStateFilter state) {
+                    return DropdownMenuItem<AccountStateFilter>(
                         value: state,
-                        child: Text(EnumToString.convertToString(
-                            state, camelCase: true)));
+                        child: Text(EnumToString.convertToString(state,
+                            camelCase: true)));
                   }).toList(),
                 ),
               ),
             ),
-
             const Divider(
               thickness: 3,
               height: 50,
@@ -80,18 +79,17 @@ class FilterViewState extends State<FilterView> {
                   border: Border.all()),
               child: Center(
                 child: TextField(
-                    decoration: InputDecoration(
-                        prefixIcon: const Icon(Icons.search),
-                        suffixIcon: IconButton(
-                          icon: const Icon(Icons.clear),
-                          onPressed: () {
-                            textEditingController.text = '';
-                          },
-                        ),
-
-                        hintText: 'State or Province...',
-                        border: InputBorder.none),
-                    controller: textEditingController,
+                  decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.search),
+                      suffixIcon: IconButton(
+                        icon: const Icon(Icons.clear),
+                        onPressed: () {
+                          textEditingController.text = '';
+                        },
+                      ),
+                      hintText: 'State or Province...',
+                      border: InputBorder.none),
+                  controller: textEditingController,
                 ),
               ),
             )

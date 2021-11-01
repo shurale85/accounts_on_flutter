@@ -1,6 +1,6 @@
 import 'package:mobile_projects/models/operation_result.dart';
 
-/// Simplified logic of token storing
+/// Simplified token store
 class TokenService {
   static String? _token;
 
@@ -9,7 +9,7 @@ class TokenService {
   void setToken(String token) => _token ??= token;
 
   OperationResult<String> getToken() {
-    if( _token == null) {
+    if (_token == null) {
       return OperationResult<String>(error: 'No access token');
     }
 

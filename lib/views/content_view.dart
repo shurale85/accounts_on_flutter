@@ -4,9 +4,8 @@ import 'package:mobile_projects/service/network_service.dart';
 import 'package:mobile_projects/service/repository.dart';
 import 'package:mobile_projects/views/card_view.dart';
 import 'package:provider/src/provider.dart';
-
 import 'splash_screen.dart';
-import 'car_grid_viw.dart';
+import 'car_grid_view.dart';
 
 class ContentView extends StatefulWidget {
   bool isListView = false;
