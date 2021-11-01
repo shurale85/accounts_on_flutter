@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:mobile_projects/models/account.dart';
 import 'package:mobile_projects/service/network_service.dart';
+import 'package:mobile_projects/service/repository.dart';
 import 'package:mobile_projects/views/card_view.dart';
 import 'package:provider/src/provider.dart';
 
@@ -16,7 +17,6 @@ class ContentView extends StatefulWidget {
 
 class ContentViewState extends State<ContentView> {
   bool isListView = false;
-  //Future<List<Account>?> accountsFuture = NetworkService.getAccounts();
   ContentViewState();
 
   @override
@@ -27,7 +27,7 @@ class ContentViewState extends State<ContentView> {
 
   @override
   Widget build(BuildContext context){
-    List<Account> accounts = context.watch<NetworkService>().getData();
+    List<Account> accounts = context.watch<Repository>().getData();
         return context.watch<NetworkService>().getIsLoading()
           ? const SplashScreen()
           : Center(child:
@@ -36,8 +36,8 @@ class ContentViewState extends State<ContentView> {
                     itemCount: accounts.length,
                     itemBuilder: (context, index){
                       return Container(
-                        height: 200,//MediaQuery.of(context).size.height,
-                        margin: EdgeInsets.all(2),
+                        height: 200,
+                        margin: const EdgeInsets.all(2),
                         child: CardView(accounts[index]),
                       );
                     })

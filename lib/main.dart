@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobile_projects/service/network_service.dart';
+import 'package:mobile_projects/service/repository.dart';
 import 'package:provider/provider.dart';
 import 'route/route.dart' as route;
 
@@ -9,7 +10,9 @@ const List<String> scopes = ['https://flutterback.crm4.dynamics.com/.default'];
 void main() {
   runApp(
       MultiProvider(providers: [
-        ChangeNotifierProvider(create: (_) => NetworkService())],
+        Provider<Repository>(create: (_) => Repository()),
+        ChangeNotifierProvider(create: (ctx) => NetworkService(repository: ctx.read<Repository>())),
+      ],
       child: MyApp(),));
 }
 
