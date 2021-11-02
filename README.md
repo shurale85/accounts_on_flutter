@@ -9,7 +9,7 @@ SPA to view accounts from Dynamic 365 CRM that is developed on flutter.
  - Searching by AccountNamr and AccountNumber fields
 
 # requirements
-- Port 55555 has to be used to launc application
+- Port 55555 has to be used to run application
 - Guest user one@flutterback.onmicrosoft.com / nopas@r@n123 can be used to play around
 
 # running
@@ -20,6 +20,8 @@ This project is a starting point for a Flutter application and not suposed to be
 # testing
 generating mock: dart run build_runner build. Generated mocks has to be used in order to use when/then/verify methods of Mock. If mock object are created manually
 it is not possible to set and verify mock behaviour.
+
 ui test can be run by command: *flutter drive --debug --driver=test/test_driver/integration_test.dart --target=test/ui_test/widget_test.dart*
+
 integration test run command: *flutter drive --debug --driver=test/test_driver/integration_test.dart --target=test/integration_test/application_test.dart*.
 It is under construction.
