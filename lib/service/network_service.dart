@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:mobile_projects/constants.dart';
 import 'package:mobile_projects/models/account.dart';
 import 'package:mobile_projects/models/filter_model.dart';
 import 'package:mobile_projects/models/operation_result.dart';
@@ -14,9 +16,13 @@ typedef ResponseMapper = void Function(Response response);
 ///Service with API methods
 ///
 ///API methods description can be found on https://docs.microsoft.com/en-us/powerapps/developer/data-platform/webapi/query-data-web-api
+//TODO: clean up after
 class NetworkService with ChangeNotifier {
   ///Indicates if request is in progress
   bool _isLoading = false;
+
+  ///http Client
+  final Dio _dio;
 
   bool getIsLoading() => _isLoading;
 
@@ -25,9 +31,12 @@ class NetworkService with ChangeNotifier {
   final TokenService _tokenService;
 
   NetworkService(
-      {required Repository repository, required TokenService tokenService})
+      {required Repository repository,
+      required TokenService tokenService,
+      Dio? dio})
       : _repository = repository,
-        _tokenService = tokenService;
+        _tokenService = tokenService,
+        _dio = dio ?? Dio();
 
   _setLoading() {
     _isLoading = true;
@@ -54,8 +63,7 @@ class NetworkService with ChangeNotifier {
         print(result.error);
       }
     } catch (e) {
-      //TODO: add debug logging, err handling logic
-      print(e);
+      rethrow;
     }
   }
 
@@ -89,7 +97,6 @@ class NetworkService with ChangeNotifier {
             .toList());
       }
 
-      print(filterModel.getQueryParam());
       var result =
           await _httpGet(qParams: filterModel.getQueryParam(), callback: map);
       if (!result.isOk()) {
@@ -105,11 +112,9 @@ class NetworkService with ChangeNotifier {
   ///Makes GET request and call for [callback] on request result
   Future<OperationResult> _httpGet(
       {String? qParams, required ResponseMapper callback}) async {
-    var url = r"https://flutterback.crm4.dynamics.com/api/data/v9.0/accounts"
-        r"?$select=name,accountid,statecode,emailaddress1,accountnumber,address1_stateorprovince,entityimage_url,address1_composite";
-
+    String url = baseUrl;
     if (qParams != null) {
-      url = "$url&$qParams";
+      url = "$baseUrl&$qParams";
     }
 
     try {
@@ -117,7 +122,6 @@ class NetworkService with ChangeNotifier {
       if (tokenResult.isOk() && tokenResult.data != null) {
         _setLoading();
 
-        var _dio = Dio();
         var opts = Options(headers: <String, String>{});
         opts.headers?['Authorization'] = 'Bearer ${tokenResult.data}';
         final response = await _dio.get(url, options: opts);

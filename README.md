@@ -18,7 +18,7 @@ SPA to view accounts from Dynamic 365 CRM that is developed on flutter.
 This project is a starting point for a Flutter application and not suposed to be considered as best practices or production-ready-template.
 
 # testing
-generating mock: dart run build_runner build. Generated mocks has to be used in order to use when/then/verify methods of Mock. If mock object are created manually
+generating mock: *flutter packages pub run build_runner build*. Generated mocks has to be used in order to use when/then/verify methods of Mock. If mock object are created manually
 it is not possible to set and verify mock behaviour.
 
 ui test can be run by command: *flutter drive --debug --driver=test/test_driver/integration_test.dart --target=test/ui_test/widget_test.dart*
