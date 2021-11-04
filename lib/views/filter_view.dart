@@ -6,7 +6,6 @@ import 'package:mobile_projects/models/filter_state.dart';
 import 'package:mobile_projects/service/network_service.dart';
 import 'package:provider/src/provider.dart';
 import 'package:enum_to_string/enum_to_string.dart';
-
 import '../constants.dart';
 
 class FilterView extends StatefulWidget {

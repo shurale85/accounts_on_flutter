@@ -30,11 +30,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(primaryColor: Colors.blueGrey),
-      debugShowCheckedModeBanner: false,
-      onGenerateRoute: route.controller,
-      initialRoute: route.loginPage
-    );
+        title: 'Flutter Demo',
+        theme: ThemeData(primaryColor: Colors.blueGrey),
+        debugShowCheckedModeBanner: false,
+        onGenerateRoute: route.controller,
+        initialRoute: route.loginPage);
   }
 }

@@ -8,7 +8,6 @@ import 'package:msal_js/msal_js.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:mobile_projects/constants.dart';
-
 import '../constants.dart';
 
 class MainPage extends StatefulWidget {
@@ -46,7 +45,10 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.search), key: const Key(Keys.searchIconKey)),
+          leading: IconButton(
+              onPressed: () {},
+              icon: const Icon(Icons.search),
+              key: const Key(Keys.searchIconKey)),
           title: TextField(
             decoration: const InputDecoration(
                 contentPadding: EdgeInsets.all(7),
@@ -69,7 +71,9 @@ class _MainPageState extends State<MainPage> {
                         showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return const FilterView(key: Key(Keys.filterViewKey),);
+                              return const FilterView(
+                                key: Key(Keys.filterViewKey),
+                              );
                             });
                       },
                       icon: const Icon(Icons.filter_alt)),

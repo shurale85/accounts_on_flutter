@@ -7,6 +7,7 @@ import 'package:mobile_projects/models/filter_model.dart';
 import 'package:mobile_projects/models/operation_result.dart';
 import 'package:mobile_projects/service/repository.dart';
 import 'package:mobile_projects/service/token_service.dart';
+import 'package:logger/logger.dart';
 
 /// Callback function type.
 ///
@@ -20,23 +21,23 @@ typedef ResponseMapper = void Function(Response response);
 class NetworkService with ChangeNotifier {
   ///Indicates if request is in progress
   bool _isLoading = false;
-
   ///http Client
   final Dio _dio;
-
-  bool getIsLoading() => _isLoading;
-
   ///Application datasource
   final Repository _repository;
   final TokenService _tokenService;
+  final Logger logger = Logger(printer: PrettyPrinter());
 
   NetworkService(
       {required Repository repository,
       required TokenService tokenService,
-      Dio? dio})
+      Dio? dio,
+      Logger? logger})
       : _repository = repository,
         _tokenService = tokenService,
         _dio = dio ?? Dio();
+
+  bool getIsLoading() => _isLoading;
 
   _setLoading() {
     _isLoading = true;
@@ -59,10 +60,12 @@ class NetworkService with ChangeNotifier {
 
       var result = await _httpGet(qParams: null, callback: map);
       if (!result.isOk()) {
-        //TODO: add debug logging, err handling logic
-        print(result.error);
+        //TODO: add err handling
+        logger.w(result.error);
       }
     } catch (e) {
+      //TODO: add err handling
+      logger.e(e);
       rethrow;
     }
   }
@@ -80,10 +83,12 @@ class NetworkService with ChangeNotifier {
           "\$filter=(contains(accountnumber, '$query') or contains(name, '$query'))";
       var result = await _httpGet(qParams: qParam, callback: map);
       if (!result.isOk()) {
-        //TODO: add debug logging, err handling logic
-        print(result.error);
+        //TODO: add err handling
+        logger.w(result.error);
       }
     } catch (e) {
+      //TODO: add err handling
+      logger.e(e);
       rethrow;
     }
   }
@@ -100,11 +105,12 @@ class NetworkService with ChangeNotifier {
       var result =
           await _httpGet(qParams: filterModel.getQueryParam(), callback: map);
       if (!result.isOk()) {
-        //TODO: add debug logging, err handling logic
-        print(result.error);
+        //TODO: add err handling
+        logger.w(result.error);
       }
     } catch (e) {
-      //TODO: add debug logging, err handling logic
+      //TODO: add err handling
+      logger.e(e);
       rethrow;
     }
   }
