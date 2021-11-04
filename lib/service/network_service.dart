@@ -17,7 +17,6 @@ typedef ResponseMapper = void Function(Response response);
 ///Service with API methods
 ///
 ///API methods description can be found on https://docs.microsoft.com/en-us/powerapps/developer/data-platform/webapi/query-data-web-api
-//TODO: clean up after
 class NetworkService with ChangeNotifier {
   ///Indicates if request is in progress
   bool _isLoading = false;
