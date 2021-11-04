@@ -10,4 +10,12 @@ class Keys {
   static const filterDropDownKey = 'filterDropDownKey';
   static const filterTextFieldKey = 'filterTextFieldKey';
   static const filterSearchButtonKey = 'filterSearchButtonKey';
+
+  static const searchTextFieldKey =  'searchTextFieldKey';
+  static const searchIconKey = 'searchIconKey';
+  static const listViewIconKey = 'listViewIconKey';
+  static const gridViewIconKey = 'gridViewIconKey';
+
+  static const listViewKey = 'listViewKey';
+  static const gridViewKey = 'gridViewKey';
 }

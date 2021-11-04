@@ -100,13 +100,13 @@ void main() {
 void checkMainScreen(cardCounts) {
   expect(find.text('No account is found'), findsNWidgets(0));
   expect(find.text('name1'), findsNWidgets(1));
-  expect(find.byKey(const Key('searchTextFiledKey')), findsNWidgets(1));
-  expect(find.byKey(const Key('searchIconKey')), findsNWidgets(1));
+  expect(find.byKey(const Key(Keys.searchTextFieldKey)), findsNWidgets(1));
+  expect(find.byKey(const Key(Keys.searchIconKey)), findsNWidgets(1));
   expect(find.byKey(const Key(Keys.filterViewIconKey)), findsNWidgets(1));
-  expect(find.byKey(const Key('listIconKey')), findsNWidgets(1));
-  expect(find.byKey(const Key('gridIconKey')), findsNWidgets(1));
-  expect(find.byKey(const Key('listViewKey')), findsNWidgets(0));
-  expect(find.byKey(const Key('gridViewKey')), findsNWidgets(1));
+  expect(find.byKey(const Key(Keys.listViewIconKey)), findsNWidgets(1));
+  expect(find.byKey(const Key(Keys.gridViewIconKey)), findsNWidgets(1));
+  expect(find.byKey(const Key(Keys.listViewKey)), findsNWidgets(0));
+  expect(find.byKey(const Key(Keys.gridViewKey)), findsNWidgets(1));
   expect(find.byType(CardView), findsNWidgets(0));
   expect(find.byType(CardGridView), findsNWidgets(cardCounts));
 }
@@ -138,18 +138,18 @@ Future<void> tapAndCheckFilters(
 }
 
 Future tapAndCheckListView(WidgetTester tester) async {
-  final listView = find.byKey(const ValueKey('listIconKey'));
+  final listView = find.byKey(const ValueKey(Keys.listViewIconKey));
   await tester.tap(listView);
   await tester.pumpAndSettle();
-  expect(find.byKey(const Key('listViewKey')), findsNWidgets(1));
-  expect(find.byKey(const Key('gridViewKey')), findsNWidgets(0));
+  expect(find.byKey(const Key(Keys.listViewKey)), findsNWidgets(1));
+  expect(find.byKey(const Key(Keys.gridViewKey)), findsNWidgets(0));
 }
 
 Future<void> tapAndCheckGridView(WidgetTester tester) async {
-  final gridView = find.byKey(const ValueKey('gridIconKey'));
+  final gridView = find.byKey(const ValueKey(Keys.gridViewIconKey));
   await tester.tap(gridView);
   await tester.pumpAndSettle();
 
-  expect(find.byKey(const Key('listViewKey')), findsNWidgets(0));
-  expect(find.byKey(const Key('gridViewKey')), findsNWidgets(1));
+  expect(find.byKey(const Key(Keys.listViewKey)), findsNWidgets(0));
+  expect(find.byKey(const Key(Keys.gridViewKey)), findsNWidgets(1));
 }

@@ -4,6 +4,7 @@ import 'package:mobile_projects/service/network_service.dart';
 import 'package:mobile_projects/service/repository.dart';
 import 'package:mobile_projects/views/card_view.dart';
 import 'package:provider/src/provider.dart';
+import '../constants.dart';
 import 'splash_screen.dart';
 import 'car_grid_view.dart';
 
@@ -36,7 +37,7 @@ class ContentViewState extends State<ContentView> {
             : Center(
                 child: isListView
                     ? ListView.builder(
-                        key: const Key('listViewKey'),
+                        key: const Key(Keys.listViewKey),
                         itemCount: accounts.length,
                         itemBuilder: (context, index) {
                           return Container(
@@ -46,7 +47,7 @@ class ContentViewState extends State<ContentView> {
                           );
                         })
                     : GridView.builder(
-                        key: const Key('gridViewKey'),
+                        key: const Key(Keys.gridViewKey),
                         gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent: 250,

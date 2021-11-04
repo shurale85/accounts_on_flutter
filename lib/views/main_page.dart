@@ -7,6 +7,7 @@ import 'package:mobile_projects/views/filter_view.dart';
 import 'package:msal_js/msal_js.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
+import 'package:mobile_projects/constants.dart';
 
 import '../constants.dart';
 
@@ -45,7 +46,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.search), key: const Key('searchIconKey')),
+          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.search), key: const Key(Keys.searchIconKey)),
           title: TextField(
             decoration: const InputDecoration(
                 contentPadding: EdgeInsets.all(7),
@@ -55,7 +56,7 @@ class _MainPageState extends State<MainPage> {
                 labelText: 'Search'),
             onChanged: _search,
             controller: textEditingController,
-            key: const Key('searchTextFiledKey'),
+            key: const Key(Keys.searchTextFieldKey),
           ),
           actions: [
             Wrap(
@@ -75,13 +76,13 @@ class _MainPageState extends State<MainPage> {
                   const Text('Filter')
                 ]),
             IconButton(
-                key: const Key('listIconKey'),
+                key: const Key(Keys.listViewIconKey),
                 onPressed: () {
                   _key.currentState!.updateCardView(true);
                 },
                 icon: const Icon(Icons.view_list)),
             IconButton(
-                key: const Key('gridIconKey'),
+                key: const Key(Keys.gridViewIconKey),
                 onPressed: () {
                   _key.currentState!.updateCardView(false);
                 },
