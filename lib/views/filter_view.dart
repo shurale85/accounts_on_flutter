@@ -7,6 +7,8 @@ import 'package:mobile_projects/service/network_service.dart';
 import 'package:provider/src/provider.dart';
 import 'package:enum_to_string/enum_to_string.dart';
 
+import '../constants.dart';
+
 class FilterView extends StatefulWidget {
   const FilterView({Key? key}) : super(key: key);
 
@@ -47,6 +49,7 @@ class FilterViewState extends State<FilterView> {
                 contentPadding: const EdgeInsets.all(10),
               ),
               child: DropdownButtonHideUnderline(
+                key: const Key(Keys.filterDropDownKey),
                 child: DropdownButton<AccountStateFilter>(
                   value: stateValue,
                   isExpanded: true,
@@ -60,8 +63,10 @@ class FilterViewState extends State<FilterView> {
                       AccountStateFilter.values.map((AccountStateFilter state) {
                     return DropdownMenuItem<AccountStateFilter>(
                         value: state,
-                        child: Text(EnumToString.convertToString(state,
-                            camelCase: true)));
+                        child: Text(
+                          EnumToString.convertToString(state, camelCase: true),
+                          key: Key(state.toString()),
+                        ));
                   }).toList(),
                 ),
               ),
@@ -79,6 +84,7 @@ class FilterViewState extends State<FilterView> {
                   border: Border.all()),
               child: Center(
                 child: TextField(
+                  key: const Key(Keys.filterTextFieldKey),
                   decoration: InputDecoration(
                       prefixIcon: const Icon(Icons.search),
                       suffixIcon: IconButton(
@@ -102,6 +108,7 @@ class FilterViewState extends State<FilterView> {
           child: const Text('Cancel'),
         ),
         TextButton(
+          key: const Key(Keys.filterSearchButtonKey),
           onPressed: () {
             _filterState.setState(textEditingController.text, stateValue);
             context.read<NetworkService>().getFilteredAccounts(FilterModel(

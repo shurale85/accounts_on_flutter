@@ -8,6 +8,8 @@ import 'package:msal_js/msal_js.dart';
 import 'package:provider/provider.dart';
 import 'package:rxdart/rxdart.dart';
 
+import '../constants.dart';
+
 class MainPage extends StatefulWidget {
   MainPage({Key? key, required this.title}) : super(key: key);
   final String title;
@@ -61,12 +63,12 @@ class _MainPageState extends State<MainPage> {
                 runAlignment: WrapAlignment.center,
                 children: [
                   IconButton(
-                      key: const Key('filterIconKey'),
+                      key: const Key(Keys.filterViewIconKey),
                       onPressed: () {
                         showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return const FilterView();
+                              return const FilterView(key: Key(Keys.filterViewKey),);
                             });
                       },
                       icon: const Icon(Icons.filter_alt)),
