@@ -36,6 +36,7 @@ class ContentViewState extends State<ContentView> {
             : Center(
                 child: isListView
                     ? ListView.builder(
+                        key: const Key('listViewKey'),
                         itemCount: accounts.length,
                         itemBuilder: (context, index) {
                           return Container(
@@ -45,6 +46,7 @@ class ContentViewState extends State<ContentView> {
                           );
                         })
                     : GridView.builder(
+                        key: const Key('gridViewKey'),
                         gridDelegate:
                             const SliverGridDelegateWithMaxCrossAxisExtent(
                                 maxCrossAxisExtent: 250,

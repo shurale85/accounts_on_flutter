@@ -43,7 +43,7 @@ class _MainPageState extends State<MainPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+          leading: IconButton(onPressed: () {}, icon: const Icon(Icons.search), key: const Key('searchIconKey')),
           title: TextField(
             decoration: const InputDecoration(
                 contentPadding: EdgeInsets.all(7),
@@ -53,6 +53,7 @@ class _MainPageState extends State<MainPage> {
                 labelText: 'Search'),
             onChanged: _search,
             controller: textEditingController,
+            key: const Key('searchTextFiledKey'),
           ),
           actions: [
             Wrap(
@@ -60,6 +61,7 @@ class _MainPageState extends State<MainPage> {
                 runAlignment: WrapAlignment.center,
                 children: [
                   IconButton(
+                      key: const Key('filterIconKey'),
                       onPressed: () {
                         showDialog(
                             context: context,
@@ -71,11 +73,13 @@ class _MainPageState extends State<MainPage> {
                   const Text('Filter')
                 ]),
             IconButton(
+                key: const Key('listIconKey'),
                 onPressed: () {
                   _key.currentState!.updateCardView(true);
                 },
                 icon: const Icon(Icons.view_list)),
             IconButton(
+                key: const Key('gridIconKey'),
                 onPressed: () {
                   _key.currentState!.updateCardView(false);
                 },
